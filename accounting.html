@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบทดสอบวิชาบัญชีขั้นต้น</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* เปลี่ยนเป็น flex-start เพื่อให้เนื้อหาขึ้นเริ่มต้นที่ด้านบน */
+      min-height: 110vh; /* ใช้ min-height แทน height */
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(12, 71, 60);
+      background-image: url(''); 
+      background-size: cover; 
+      background-position: center;
+      overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลง */
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 20px;
+      background-color: #ffffff; /* สีเขียว */
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-container {
+      text-align: center;
+    }
+    h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    padding: 5px;
+    color: #7bc0ab; /* เปลี่ยนสีตัวอักษร  */
+    border-radius: 5px;
+    display: inline-block;
+  }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .answered-count {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #a2eed7; /* เปลี่ยนสีตัวอักษร  */
+  }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Add space between buttons */
+      margin-top: 20px;
+    }
+    .submit-button, .next-button {
+      background-color: rgba(168, 114, 70, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .submit-button:hover, .next-button:hover {
+      background-color: rgba(255, 201, 148, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .back-button, .next-button {
+      background-color: rgba(181, 120, 71, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .back-button:hover, .next-button:hover {
+      background-color: rgba(184, 152, 84, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>แบบทดสอบ</h1>
+    <div id="answeredCount" class="answered-count">
+      คำถามที่ทำไปแล้ว: 0/20
+    </div>
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. ข้อใดหมายถึง การบัญชี</p>
+        <label><input type="radio" name="q1" value="A" onchange="updateAnsweredCount()">A. การจดบันทึกและการจัดหมวดหมู่</label>
+        <label><input type="radio" name="q1" value="B" onchange="updateAnsweredCount()">B. การจัดหมวดหมู่และการสรุปผล</label>
+        <label><input type="radio" name="q1" value="C" onchange="updateAnsweredCount()">C. การสรุปผลและการตีความ</label>
+        <label><input type="radio" name="q1" value="D" onchange="updateAnsweredCount()">D. ข้อ ก. และ ค. ถูก</label>
+      </div>
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. ข้อใดหมายถึงงวดบัญชี</p>
+        <label><input type="radio" name="q2" value="A" onchange="updateAnsweredCount()">A. ระยะเวลาตามปีปฏิทิน </label>
+        <label><input type="radio" name="q2" value="B" onchange="updateAnsweredCount()">B. ระยะเวลาที่กําหนดเมื่อล้มเลิกกิจการ</label>
+        <label><input type="radio" name="q2" value="C" onchange="updateAnsweredCount()">C. ระยะเวลาที่กําหนดเพื่อทําการรายงานผลการดําเนินงานของกิจการ</label>
+        <label><input type="radio" name="q2" value="D" onchange="updateAnsweredCount()">D. ระยะเวลาจาก 1 ตุลาคม ของปีหนึ่งปีใด ถึง 30 กันยายน ของปีถัดไป</label>
+      </div>
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. ข้อสมมุติฐาน เรื่องความเป็นหน่วยงาน คือข้อใดต่อไปนี</p>
+        <label><input type="radio" name="q3" value="A" onchange="updateAnsweredCount()">A. กิจการเจ้าของคนเดียวแยกต่างจากห้างหุ้นส่วน </label>
+        <label><input type="radio" name="q3" value="B" onchange="updateAnsweredCount()">B. กิจการเป็นหน่วยงานแยกเป็นอิสระจากเจ้าของกิจการ        </label>
+        <label><input type="radio" name="q3" value="C" onchange="updateAnsweredCount()">C. กิจการห้างหุ้นส่วนเท่านั้นที่จะมีลักษณะเป็นหน่วยงาน</label>
+        <label><input type="radio" name="q3" value="D" onchange="updateAnsweredCount()">D.  กิจการบริษัทจํากัดเท่านั้นที่จะมีลักษณะเป็นหน่วยงาน</label>
+      </div>
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. ข้อใดหมายถึงวัตถุประสงค์ของการบัญชี </p>
+        <label><input type="radio" name="q4" value="A" onchange="updateAnsweredCount()">A. เพื่อให้ผู้เรียนสามารถทําบัญชีได้ </label>
+        <label><input type="radio" name="q4" value="B" onchange="updateAnsweredCount()">B. เพื่อให้ผู้เรียนสามารถคิดดอกเบี้ยได้</label>
+        <label><input type="radio" name="q4" value="C" onchange="updateAnsweredCount()">C. เพื่อให้บันทึกรายการค้าตามหมวดบัญชีได้ </label>
+        <label><input type="radio" name="q4" value="D" onchange="updateAnsweredCount()">D. เพื่อจดบันทึกรายการค้าที่เกิดขึ้น เรียงตามลําดับก่อนหลังและจําแนกประเภทของรายการค้าไว้อย่างถูกต้อง</label>
+      </div>
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. ผู้ที่ต้องการทราบข้อมูลทางการบัญชี คือบุคคลต่อไปนี้ยกเว้นข้อใด</p>
+        <label><input type="radio" name="q5" value="A" onchange="updateAnsweredCount()">A. ผู้ลงทุน </label>
+        <label><input type="radio" name="q5" value="B" onchange="updateAnsweredCount()">B. ผู้บริหาร </label>
+        <label><input type="radio" name="q5" value="C" onchange="updateAnsweredCount()">C. เจ้าหนี้</label>
+        <label><input type="radio" name="q5" value="D" onchange="updateAnsweredCount()">D. ลูกหนี้</label>
+      </div>
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. ประเภทของธุรกิจแบ่งตามรูปแบบของการประกอบการ คือกิจการใด </p>
+        <label><input type="radio" name="q6" value="A" onchange="updateAnsweredCount()">A. ห้างหุ้นส่วนสามัญ ห้างหุ้นส่วนจํากัด </label>
+        <label><input type="radio" name="q6" value="B" onchange="updateAnsweredCount()">B. เจ้าของคนเดียว ห้างหุ้นส่วน </label>
+        <label><input type="radio" name="q6" value="C" onchange="updateAnsweredCount()">C. เจ้าของคนเดียว ห้างหุ้นส่วน บริษัทจํากัด</label>
+        <label><input type="radio" name="q6" value="D" onchange="updateAnsweredCount()">D. เจ้าของคนเดียว บริษัทเอกชน บริษัทมหาชนจํากัด</label>
+      </div>
+      <!-- Question 7 -->
+      <div class="question">
+        <p>7. ชื่อของสินทรัพย์ทั้งหมดคือข้อต่อไปนี้ยกเว้นข้อใด </p>
+        <label><input type="radio" name="q7" value="A" onchange="updateAnsweredCount()">A. เงินสด ลูกหนี้ สินค้า วัสดุสํานักงาน </label>
+        <label><input type="radio" name="q7" value="B" onchange="updateAnsweredCount()">B. ที่ดิน อาคาร อุปกรณ์ เครื่องตกแต่ง </label>
+        <label><input type="radio" name="q7" value="C" onchange="updateAnsweredCount()">C. ตั๋วรับเงิน ลิขสิทธิ์ สิทธิบัตร ค่าความนิยม </label>
+        <label><input type="radio" name="q7" value="D" onchange="updateAnsweredCount()">D. เจ้าหนี้ เงินกู้ ตั๋วเงินจ่าย ค่าเช่าค้างจ่าย </label>
+      </div> 
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8. การลงบัญชีด้านเครดิตเกิดจากรายการที่ทําให้อะไรเปลี่ยนแปลง </p>
+        <label><input type="radio" name="q8" value="A" onchange="updateAnsweredCount()">A. สินทรัพย์เพิ่ม หนี้สินเพิ่ม ส่วนของเจ้าของเพิ่ม </label>
+        <label><input type="radio" name="q8" value="B" onchange="updateAnsweredCount()">B. สินทรัพย์ลด หนี้สินเพิ่ม ส่วนของเจ้าของเพิ่ม </label>
+        <label><input type="radio" name="q8" value="C" onchange="updateAnsweredCount()">C. สินทรัพย์เพิ่ม หนี้สินลด ส่วนของเจ้าของเพิ่ม</label>
+        <label><input type="radio" name="q8" value="D" onchange="updateAnsweredCount()">D. สินทรัพย์เพิ่ม หนี้สินลด ส่วนของเจ้าของลด </label>
+      </div>
+      <!-- Question 9 -->
+      <div class="question">
+        <p>9. การลงบัญชีด้านเดบิต เกิดจากรายการที่ทําให้อะไรเปลี่ยนแปลง </p>
+        <label><input type="radio" name="q9" value="A" onchange="updateAnsweredCount()">A. สินทรัพย์เพิ่ม หนี้สินเพิ่ม ส่วนของเจ้าของเพิ่ม </label>
+        <label><input type="radio" name="q9" value="B" onchange="updateAnsweredCount()">B. สินทรัพย์ลด หนี้สินเพิ่ม ส่วนของเจ้าของเพิ่ม </label>
+        <label><input type="radio" name="q9" value="C" onchange="updateAnsweredCount()">C. สินทรัพย์เพิ่ม หนี้สินลด ส่วนของเจ้าของเพิ่ม </label>
+        <label><input type="radio" name="q9" value="D" onchange="updateAnsweredCount()">D. สินทรัพย์เพิ่ม หนี้สินลด ส่วนของเจ้าของลด </label>
+      </div>
+      <!-- Question 10 -->
+      <div class="question">
+        <p>10. ข้อใดไม่ใช่การจดบันทึกสมุดรายวันทั่วไป </p>
+        <label><input type="radio" name="q10" value="A" onchange="updateAnsweredCount()">A. อ้างอิงถึงเลขที่บัญชีมีเดบิต และเครดิต </label>
+        <label><input type="radio" name="q10" value="B" onchange="updateAnsweredCount()">B. เขียนชื่อบัญชีที่มีเดบิต และจํานวนเงินก่อนบัญชีที่เครดิต </label>
+        <label><input type="radio" name="q10" value="C" onchange="updateAnsweredCount()">C. เขียนคําอธิบายรายการที่เกิดขึ้นและขีดเส้นคั่นรายการ </label>
+        <label><input type="radio" name="q10" value="D" onchange="updateAnsweredCount()">D. รวมยอดช่องจํานวนเงินเดบิต และจํานวนเงินเครดิต</label>
+      </div>
+      <!-- Question 11 -->
+      <div class="question">
+        <p>11. ช่องรายการของบัญชีแยกประเภทที่ผ่านบัญชีจากสมุดรายวันทั่วไปจะใช้บันทึกข้อความต่อไปนี้ ยกเว้นข้อความใด </p>
+        <label><input type="radio" name="q11" value="A" onchange="updateAnsweredCount()">A. ยอดยกมา </label>
+        <label><input type="radio" name="q11" value="B" onchange="updateAnsweredCount()">B. สมุดรายวัน </label>
+        <label><input type="radio" name="q11" value="C" onchange="updateAnsweredCount()">C. ชื่อบัญชีตรงข้าม </label>
+        <label><input type="radio" name="q11" value="D" onchange="updateAnsweredCount()">D. ยอดยกไป</label>
+      </div>
+       <!-- Question 12 -->
+       <div class="question">
+        <p>12. ถ้ามีกําไรสุทธิ 5,500 บาท และมีถอนใช้ส่วนตัว 6,000 บาท ต้องการปิดบัญชีถอนใช้ส่วนตัวทําอย่างไร (ปิดบัญชีโดยไม่ผ่านบัญชีถอนใช้ส่วนตัว) </p>
+        <label><input type="radio" name="q12" value="A" onchange="updateAnsweredCount()">A. เดบิต ทุน 6,000 บาท เครดิต ถอนใช้ส่วนตัว 6,000 บาท </label>
+        <label><input type="radio" name="q12" value="B" onchange="updateAnsweredCount()">B. เดบิต ทุน 500 บาท เครดิต ถอนใช้ส่วนตัว 500 บาท</label>
+        <label><input type="radio" name="q12" value="C" onchange="updateAnsweredCount()">C. เดบิต ถอนใช้ส่วนตัว 6,000 บาท เครดิต กําไรขาดทุน 500 บาท </label>
+        <label><input type="radio" name="q12" value="D" onchange="updateAnsweredCount()">D. เดบิต ถอนใช้ส่วนตัว 500 บาท เครดิต กําไรขาดทุน 500 บาท </label>
+      </div>
+       <!-- Question 13 -->
+       <div class="question">
+        <p>13. บัญชีที่มียอดดุลด้านเดบิต คือข้อใด </p>
+        <label><input type="radio" name="q13" value="A" onchange="updateAnsweredCount()">A. เจ้าหนี้ ทุน เงินกู้ </label>
+        <label><input type="radio" name="q13" value="B" onchange="updateAnsweredCount()">B. เงินสด ลูกหนี้ ถอนใช้ส่วนตัว </label>
+        <label><input type="radio" name="q13" value="C" onchange="updateAnsweredCount()">C. ดอกเบี้ยรับ ตั๋วเงินจ่าย ถอนใช้ส่วนตัว </label>
+        <label><input type="radio" name="q13" value="D" onchange="updateAnsweredCount()">D. ทุน ดอกเบี้ยรับ รายได้ค่าเช่า </label>
+      </div>
+       <!-- Question 14 -->
+       <div class="question">
+        <p>14. ขาดทุนสุทธิที่แสดงในงบกําไรขาดทุนเป็นผลมาจากอะไร </p>
+        <label><input type="radio" name="q14" value="A" onchange="updateAnsweredCount()">A. ยอดรวมจํานวนเงินค่าใช้จ่ายน้อยกว่ารายได้ </label>
+        <label><input type="radio" name="q14" value="B" onchange="updateAnsweredCount()">B. ยอดรวมสินทรัพย์น้อยกว่าหนี้สินและทุน</label>
+        <label><input type="radio" name="q14" value="C" onchange="updateAnsweredCount()">C. จํานวนรายการรายได้มากกว่ารายการค่าใช้จ่าย</label>
+        <label><input type="radio" name="q14" value="D" onchange="updateAnsweredCount()">D. ยอดรวมจํานวนเงินรายได้น้อยกว่ายอดรวมจํานวนเงินค่าใช้จ่าย</label>
+      </div>
+       <!-- Question 15 -->
+       <div class="question">
+        <p>15. บัญชีที่อยู่ในงบทดลองหลังปิดบัญชีคืออะไรบ้าง </p>
+        <label><input type="radio" name="q15" value="A" onchange="updateAnsweredCount()">A. สินทรัพย์ หนี้สิน ทุน  </label>
+        <label><input type="radio" name="q15" value="B" onchange="updateAnsweredCount()">B. สินทรัพย์ หนี้สิน ทุน ถอนใช้ส่วนตัว </label>
+        <label><input type="radio" name="q15" value="C" onchange="updateAnsweredCount()">C. สินทรัพย์ หนี้สิน ทุน รายได้ ค่าใช้จ่าย </label>
+        <label><input type="radio" name="q15" value="D" onchange="updateAnsweredCount()">D. สินทรัพย์ หนี้สิน ทุน ถอนใช้ส่วนตัว รายได้ค่าใช้จ่าย </label>
+      </div>
+       <!-- Question 16 -->
+       <div class="question">
+        <p>16. งบดุลของกิจการค้า จะแสดงถึง </p>
+        <label><input type="radio" name="q16" value="A" onchange="updateAnsweredCount()">A. ผลการดำเนินงานในงวดหนึ่ง ๆ ของกิจการค้า </label>
+        <label><input type="radio" name="q16" value="B" onchange="updateAnsweredCount()">B. ฐานะการเงินของกิจการค้า ณ วันใดวันหนึ่ง</label>
+        <label><input type="radio" name="q16" value="C" onchange="updateAnsweredCount()">C. สินทรัพย์หนี้สินและทุนในรอบระยะเวลาหนึ่ง ๆ กิจการค้า</label>
+        <label><input type="radio" name="q16" value="D" onchange="updateAnsweredCount()">D. ส่วนของเจ้าของ ณ วันใดวันหนึ่ง</label>
+      </div>
+       <!-- Question 17 -->
+       <div class="question">
+        <p>17. งบกำไรขาดทุนของกิจการค้า แสดงถึง </p>
+        <label><input type="radio" name="q17" value="A" onchange="updateAnsweredCount()">A. ผลการดำเนินงานในรอบระยะเวลาการดำเนินงานหนึ่ง ๆ ของกิจการค้า </label>
+        <label><input type="radio" name="q17" value="B" onchange="updateAnsweredCount()">B. ฐานะการเงินของกิจการค้า ณ วันใดวันหนึ่ง </label>
+        <label><input type="radio" name="q17" value="C" onchange="updateAnsweredCount()">C. ผลการดำเนินงานกำไรสุทธิหรือขาดทุนสุทธิ ณ วันสิ้นปี</label>
+        <label><input type="radio" name="q17" value="D" onchange="updateAnsweredCount()">D. การเปรียบเทียบระหว่างรายได้และรายจ่ายในแต่ละปี</label>
+      </div>
+       <!-- Question 18 -->
+       <div class="question">
+        <p>18. กิจการจะบันทึกรายการทางด้านเดบิตเมื่อใด </p>
+        <label><input type="radio" name="q18" value="A" onchange="updateAnsweredCount()">A. สินทรัพย์เพิ่ม, ค่าใช้จ่ายลด, หนี้สินและทุนลด </label>
+        <label><input type="radio" name="q18" value="B" onchange="updateAnsweredCount()">B. สินทรัพย์และค่าใช้จ่ายเพิ่ม ส่วนหนี้สิน ทุนและรายได้ลด </label>
+        <label><input type="radio" name="q18" value="C" onchange="updateAnsweredCount()">C. สินทรัพย์และรายได้เพิ่ม ส่วนหนี้สิน ทุนและค่าใช้จ่ายลด </label>
+        <label><input type="radio" name="q18" value="D" onchange="updateAnsweredCount()">D. สินทรัพย์และหนี้สินเพิ่ม ส่วนทุนและรายได้ ค่าใช้จ่ายลด </label>
+      </div>
+       <!-- Question 19 -->
+       <div class="question">
+        <p>19. หลักการของระบบบัญชีคู่คือ </p>
+        <label><input type="radio" name="q19" value="A" onchange="updateAnsweredCount()">A. การจดบันทึกรายการค้าลงในสมุดรายการขั้นต้น </label>
+        <label><input type="radio" name="q19" value="B" onchange="updateAnsweredCount()">B. การจดบันทึกรายการค้าลงในบัญชีแยกประเภท </label>
+        <label><input type="radio" name="q19" value="C" onchange="updateAnsweredCount()">C. การจดบันทึกรายการค้าทุกรายการจะต้องบันทึกในบัญซึไม่น้อยกว่าสองบัญชีด้วยจำนวนเงินด้านเดบิตและเครดิตเท่ากัน </label>
+        <label><input type="radio" name="q19" value="D" onchange="updateAnsweredCount()">D. การจดบันทึกรายการค้าต้องบันทึกทั้งสองด้าน คือด้านเดบิตและด้านเครดิต</label>
+      </div>
+      <!-- Question 20 -->
+      <div class="question">
+        <p>20. เมื่อเจ้าของนำสินทรัพย์พย์มาลงทุนจะมีผลกระทบต่อสมการบัญชีคือ </p>
+        <label><input type="radio" name="q20" value="A" onchange="updateAnsweredCount()">A. ทำให้สินทรัพย์เพิ่มขึ้นและส่วนของเจ้าของเพิ่มขึ้น </label>
+        <label><input type="radio" name="q20" value="B" onchange="updateAnsweredCount()">B. ทำให้สินทรัพย์ลดลงและส่วนของเจ้าของเพิ่มขึ้น </label>
+        <label><input type="radio" name="q20" value="C" onchange="updateAnsweredCount()">C. ทำให้สินทรัพย์เพิ่มขึ้นและหนี้สินลดลง </label>
+        <label><input type="radio" name="q20" value="D" onchange="updateAnsweredCount()">D. ทำให้สินทรัพย์เพิ่มขึ้นและส่วนของเจ้าของลดลง </label>
+      </div>
+      <!-- Add remaining questions -->
+      <div class="button-container">
+        <button type="button" class="submit-button" onclick="submitQuiz()">ส่งคำตอบ</button>
+        <button type="button" class="back-button" onclick="backQuiz()">กลับหน้าหลัก</button>
+      </div>
+    </form>
+  </div>
+
+
+  <script>
+    let answeredCount = 0;
+    const totalQuestions = 20;  // จำนวนคำถามทั้งหมด
+  
+    // ฟังก์ชันอัปเดตจำนวนคำถามที่ตอบแล้ว
+    function updateAnsweredCount() {
+      answeredCount = 0;
+      
+      // ตรวจสอบทุกคำถามและนับจำนวนคำถามที่ติ๊ก
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
+        if (answers.length > 0) {
+          answeredCount++; // ถ้ามีการติ๊กคำตอบ ก็จะเพิ่มจำนวนคำถามที่ตอบแล้ว
+        }
+      }
+  
+      // อัปเดตข้อความแสดงจำนวนคำถามที่ทำไปแล้ว
+      document.getElementById('answeredCount').textContent = `คำถามที่ทำไปแล้ว: ${answeredCount}/${totalQuestions}`;
+    }
+  
+    function submitQuiz() {
+      let allAnswered = true;
+  
+      // ตรวจสอบว่าทุกคำถามมีการตอบแล้วหรือไม่
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!answer) {
+          allAnswered = false;
+          break; 
+        }
+      }
+  
+      if (!allAnswered) {
+        alert("กรุณาตอบทุกคำถามก่อนส่งคำตอบ");
+        return;
+      }
+  
+      const correctAnswers = {
+        q1: 'D', // ตัวอย่างคำตอบที่ถูกต้อง
+        q2: 'C',
+        q3: 'B',
+        q4: 'D',
+        q5: 'D',
+        q6: 'C',
+        q7: 'D',
+        q8: 'B',
+        q9: 'D',
+        q10: 'D',
+        q11: 'D',
+        q12: 'A',
+        q13: 'B',
+        q14: 'D',
+        q15: 'A',
+        q16: 'D',
+        q17: 'A',
+        q18: 'B',
+        q19: 'C',
+        q20: 'A',
+        // เพิ่มคำตอบที่ถูกต้องสำหรับคำถามอื่นๆ
+      };
+      let score = 0;
+      let userAnswers = {};
+  
+      // ตรวจสอบคำตอบของทุกคำถามจาก q1 ถึง q20
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer) {
+          userAnswers[`q${i}`] = answer.value;
+          if (answer.value === correctAnswers[`q${i}`]) {
+            score++; // ถ้าคำตอบถูกต้อง เพิ่มคะแนน
+          }
+        }
+      }
+  
+      // แสดงคะแนน
+      alert(`คุณได้คะแนน: ${score} จาก ${totalQuestions}`);
+  
+      // เก็บคะแนนและคำตอบลงใน localStorage
+      localStorage.setItem('accScore', JSON.stringify({ score: score, total: totalQuestions }));
+  
+      window.location.href = 'resultacc.html'; // เปลี่ยนเป็นหน้าผลลัพธ์ของคุณ
+      
+    }
+    function goBack() {
+  window.location.href = 'index.html';  // ลิงก์ไปยังหน้า index.html
+}
+  </script>
+  
+</body>
+</html>

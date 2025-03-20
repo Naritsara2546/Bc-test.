@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ผลลัพธ์แบบทดสอบ</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #c79b62, #836e3c); /* Gradient background */
+      color: #fff;
+      padding: 50px;
+      text-align: center;
+      background-image: url('https://scontent.fbkk33-3.fna.fbcdn.net/v/t1.15752-9/482732082_525627970383605_3624084542607003984_n.png?_nc_cat=111&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGChjAac8ACkPKONAPxxHxR6UoCXwyio_bpSgJfDKKj9iU1DheqSMOXQOw_RgRJckuSNOyPFpl6o_hr6i6oL08E&_nc_ohc=ExxsFMhr_MgQ7kNvgHbC5Im&_nc_oc=AdhHP924wpalxeTL4kSZJ4TE6F46qUCOHSDHyfbS4VLaq_G7Y7GoCc1F5gnrJmio-Yk&_nc_zt=23&_nc_ht=scontent.fbkk33-3.fna&oh=03_Q7cD1wFKeE9y5wnNEiUzAs2mApH11J5TSGKz-JYVehYwezMSAA&oe=67FBB6EC'); /* ใช้ URL ของรูปภาพ */
+      background-size: cover; 
+      background-position: center; 
+      
+    }
+
+
+    h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .result-container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: inline-block;
+      width: 100%;
+      max-width: 500px;
+    }
+
+    .result-text {
+      font-size: 1.5em;
+      margin: 10px 0;
+    }
+
+    .percentage {
+      font-size: 2em;
+      font-weight: bold;
+      color: #f5b942;
+      margin: 20px 0;
+    }
+
+    .certificate-section {
+      display: none;
+      margin-top: 30px;
+    }
+
+    .certificate-button {
+      background-color: #f5b942;
+      color: #000000;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .certificate-button:hover {
+      background-color: #ff9b00;
+      transform: scale(1.05);
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 30px;
+      background-color: #000000;
+      border-radius: 5px;
+      margin: 20px 0;
+    }
+
+    .progress {
+      height: 100%;
+      background-color: #4caf50;
+      text-align: center;
+      line-height: 30px;
+      color: white;
+      border-radius: 5px;
+    }
+
+    .back-button {
+      background-color: #bc935e;
+      color: #fff;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .back-button:hover {
+      background-color: #8c7041;
+    }
+    .Next-button {
+      background-color: #bc935e;
+      color: #fff;
+      font-size: 1.2em;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .Next-button:hover {
+      background-color: #8c7041;
+    }
+  </style>
+</head>
+<body>
+  <h1>ผลลัพธ์แบบทดสอบ</h1>
+  <div class="result-container">
+    <div id="score" class="result-text"></div>
+    <div id="percentage" class="percentage"></div>
+    <div class="progress-bar">
+      <div id="progress" class="progress"></div>
+    </div>
+    <div id="certificate-section" class="certificate-section">
+      <button class="certificate-button" onclick="goToCertificate()">รับเกียรติบัตร</button>
+    </div>
+    <button class="back-button" onclick="goBack()">กลับไปหน้า Index</button>
+    <button class="Next-button" onclick="nextpage()">เฉลยข้อสอบ</button>
+  </div>
+
+  <script>
+    // ดึงคะแนนจาก LocalStorage
+    const scoreData = JSON.parse(localStorage.getItem('taxScore'));
+    const score = scoreData.score;
+    const total = scoreData.total;
+
+    // คำนวณเปอร์เซ็นต์
+    const percentage = (score / total) * 100;
+
+    // แสดงคะแนน
+    document.getElementById('score').innerHTML = `คุณได้คะแนน ${score} จาก ${total}`;
+
+    // แสดงเปอร์เซ็นต์
+    document.getElementById('percentage').innerHTML = `เปอร์เซ็นต์: ${percentage.toFixed()}%`;
+
+    // แสดง Progress Bar
+    const progressBar = document.getElementById('progress');
+    progressBar.style.width = `${percentage}%`;
+
+    // หากคะแนนมากกว่า 50% แสดงปุ่มเกียรติบัตร
+    if (percentage >= 50) {
+      document.getElementById('certificate-section').style.display = 'block'; // แสดงปุ่มเกียรติบัตร
+    }
+
+    // ฟังก์ชันกลับไปหน้า Index
+    function goBack() {
+      window.location.href = 'exam.html'; // เปลี่ยนเส้นทางไปยังหน้า index
+    }
+
+    // ฟังก์ชันไปยังหน้าเกียรติบัตร
+    function goToCertificate() {
+      window.location.href = 'certificatetax.html'; // เปลี่ยนเส้นทางไปยังหน้าเกียรติบัตร
+    }
+    // ฟังก์ชันไปยังหน้าเกียรติบัตร
+    function nextpage() {
+      window.location.href = 'taxresult.html'; // เปลี่ยนเส้นทางไปยังหน้าเกียรติบัตร
+    }
+  </script>
+</body>
+</html>

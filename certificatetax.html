@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+           background-color: rgb(12, 71, 60);
+           background-image: url(''); 
+           background-size: cover; 
+           background-position: center;
+           overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลง */
+           font-family: 'Arial', sans-serif;
+           padding: 40px 0;
+       }
+
+       .container {
+           max-width: 900px;
+       }
+
+       .form-container {
+           background-color: #fff;
+           padding: 40px;
+           border-radius: 10px;
+           box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+           margin-bottom: 30px;
+           text-align: center;
+       }
+
+       .certificate-container {
+           display: none;
+           text-align: center;
+           padding: 100px;
+           margin-top: 30px;
+           background-color: #f9d88d;
+           background-image: url('https://scontent.fbkk34-1.fna.fbcdn.net/v/t1.15752-9/485706607_1426173678346254_5786236769294982588_n.png?_nc_cat=108&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGlF1_Xroz62aEzqgWhZvQJyc4YjX3ui3rJzhiNfe6LevOEfYHCWEQOStcA-xqpo1aXNORclwqNfyeiH5wWtuhj&_nc_ohc=shHogLVkWKUQ7kNvgE32x9Q&_nc_oc=AdniZeoF_oWYaH7u6nGGA3u2PlEamMJhOdoB-VMojtp2d6VhPaYXCA3uOCk4KMQP7dM&_nc_zt=23&_nc_ht=scontent.fbkk34-1.fna&oh=03_Q7cD1wFCiya0dmoAIggQdBipc_hC9lzlLf1fshq8Df-hRdEO_Q&oe=6803B901');
+           background-size: cover;
+           background-position: center;
+           color: #333;
+           border-radius: 15px;
+           position: relative;
+           box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+       }
+
+       .certificate-container::before {
+           content: "";
+           position: absolute;
+           top: 0;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           background-color: rgba(255, 255, 255, 0.6);
+           border-radius: 15px;
+           z-index: -1;
+       }
+
+       .certificate-container img {
+           width: 150px;
+           margin-bottom: 20px;
+           border-radius: 50%;
+           border: 5px solid #c4a704;
+           padding: 10px;
+       }
+
+       .certificate-title {
+           font-size: 40px;
+           font-weight: bold;
+           color: #c4a704;
+           margin: 20px 0;
+           text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+       }
+       .certificate-name {
+   font-size: 30px; /* เพิ่มขนาด */
+   font-weight: bold;
+   color: #7e5f29; /* เปลี่ยนเป็นสีเขียว */
+   margin-top: 70px; /* เพิ่มระยะห่างจากด้านบน */
+   margin-bottom: 5px;
+}
+
+
+       .certificate-description {
+           font-size: 20px;
+           color: #8f5928;
+           margin-bottom: 30px;
+           margin-top: 40px; 
+           line-height: 1;
+       }
+
+       .date, .signature {
+           font-size: 16px;
+           color: #8d692e;
+       }
+
+       .signature p {
+           margin: 0;
+           font-size: 16px;
+           font-weight: bold;
+           color: #937045;
+       }
+
+       .btn-custom, .back-button {
+           background-color: #c4a704;
+           color: white;
+           border: none;
+           padding: 12px 25px;
+           border-radius: 5px;
+           cursor: pointer;
+           font-size: 16px;
+           transition: background-color 0.3s;
+           margin: 10px;
+       }
+
+       .btn-custom:hover, .back-button:hover {
+           background-color: #ecdfa9;
+       }
+
+       .back-button {
+           background-color: #56421e;
+       }
+
+       .center-content {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           text-align: center;
+           flex-direction: column;
+       }
+
+       @media (max-width: 768px) {
+           .certificate-title {
+               font-size: 32px;
+           }
+
+           .certificate-name {
+               font-size: 30px;
+           }
+
+           .certificate-description {
+               font-size: 22px;
+           }
+
+           .btn-custom {
+               padding: 10px 20px;
+           }
+       }
+   </style>
+</head>
+<body>
+<div class="container">
+    <!-- Form to input name -->
+    <div class="form-container">
+        <form id="certificateForm">
+            <div class="mb-3">
+                <label for="name" class="form-label">ชื่อผู้รับเกียรติบัตร:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="กรอกชื่อ" required>
+            </div>
+            <button type="submit" class="btn-custom">สร้างเกียรติบัตร</button>
+        </form>
+    </div>
+
+    <!-- Back button -->
+    <div class="center-content">
+        <button class="back-button" onclick="goBack()">กลับไปหน้า Index</button>
+    </div>
+
+    <!-- Certificate display -->
+    <div id="certificate" class="certificate-container">
+        <div class="certificate-title">⠀</div>
+        <div class="certificate-name" id="certificateName"></div>
+        <div class="certificate-description">
+            ได้ผ่านการทดสอบความรู้ด้านวิชาภาษี<br>
+            คณะการบัญชีและการจัดการ มหาวิทยาลัยมหาสารคาม
+        </div>
+        <div class="date" id="currentDate"></div><br>
+        <div class="signature">
+            <p>⠀</p>
+            <p>⠀</p>
+        </div>
+    </div>
+
+    <!-- Download button -->
+    <div class="center-content">
+        <button id="downloadButton" class="btn-custom" style="display: none;">ดาวน์โหลดเกียรติบัตร</button>
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById("certificateForm");
+    const certificate = document.getElementById("certificate");
+    const certificateName = document.getElementById("certificateName");
+    const currentDate = document.getElementById("currentDate");
+    const downloadButton = document.getElementById("downloadButton");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const name = document.getElementById("name").value;
+        certificateName.textContent = name;
+        currentDate.textContent = "วันที่ " + new Date().toLocaleDateString('th-TH', { year: 'numeric', month: 'long', day: 'numeric' });
+        certificate.style.display = "block";
+        downloadButton.style.display = "inline-block";
+    });
+
+    downloadButton.addEventListener("click", function () {
+        html2canvas(certificate).then(canvas => {
+            const imgData = canvas.toDataURL('image/png');
+            const pdf = new window.jspdf.jsPDF('l', 'mm', 'a4');
+            const imgWidth = 297;
+            const imgHeight = canvas.height * imgWidth / canvas.width;
+            pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            pdf.save('certificate.pdf');
+        }).catch(error => {
+            console.error("Error generating PDF: ", error);
+        });
+    });
+
+    function goBack() {
+        window.location.href = 'index.html'; // เปลี่ยนเส้นทางไปยังหน้า index
+    }
+</script>
+
+</body>
+</html>

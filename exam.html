@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ประตูสู่แบบทดสอบ</title>
+  <style>
+    body {
+      font-family: "Arial", sans-serif;
+      text-align: center;
+      background-color: #f5f5f5; /* สีพื้นหลังอ่อน */
+      
+      background-size: cover; 
+      background-position: center; 
+      background-image: url('https://scontent.fbkk33-3.fna.fbcdn.net/v/t1.15752-9/481659052_2742225455978898_499358191473454775_n.png?_nc_cat=110&ccb=1-7&_nc_sid=9f807c&_nc_eui2=AeGdB_OgvNKwzngm9SHaErQ1886_ZuMx0_3zzr9m4zHT_W_CB4Yh9GPyZuiETaHIPnJ2qUHA_Hag9YnhwLv59s8a&_nc_ohc=RWvuk-gZlwkQ7kNvgGyHAPf&_nc_oc=AdjEfnYECphVjK4kNQO_tDFzgxXeuoFzZs7EiAUFjoq_yIFyV0wzDAHER1PKppHyaOI&_nc_zt=23&_nc_ht=scontent.fbkk33-3.fna&oh=03_Q7cD1wFWd6tbFZgpTV9gSh7FrQU8JSbuFZ3KV8NTQGIFa2ipoQ&oe=67FBC5CC'); /* ใช้ URL ของรูปภาพ */
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      color: #333; /* ใช้สีที่ไม่ฉูดฉาด */
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #555;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .door {
+      position: relative;
+      width: 150px;
+      height: 250px;
+      background-color: #f3d0aa; /* สีครีมสำหรับประตู */
+      border-top-left-radius: 75px; /* มุมโค้งด้านบนซ้าย */
+      border-top-right-radius: 75px; /* มุมโค้งด้านบนขวา */
+      border-bottom-left-radius: 20px; /* มุมล่างซ้าย */
+      border-bottom-right-radius: 20px; /* มุมล่างขวา */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform 0.3s ease;
+    }
+
+    .door:hover {
+      transform: translateY(-10px);
+    }
+
+    .door .button {
+      padding: 12px 25px;
+      background-color: #b8773f;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .door .button:hover {
+      background-color: #a07a45;
+    }
+
+    .door .button:active {
+      background-color: #c6a26f;
+    }
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <p></p>
+  <div class="container">
+    <div class="door">
+      <a href="computer.html" class="start-button1">
+        <button class="button">computer</button>
+      </a>
+    </div>
+    <div class="door">
+      <a href="accounting.html" class="start-button2">
+        <button class="button">accounting</button>
+      </a>
+    </div>
+    <div class="door">
+      <a href="maketing.html" class="start-button3">
+        <button class="button">marketing</button>
+      </a>
+    </div>
+    <div class="door">
+      <a href="tax.html" class="start-button4">
+        <button class="button">tax</button>
+      </a>
+    </div>
+  </div>
+</body>
+</html>

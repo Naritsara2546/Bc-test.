@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบทดสอบวิชาการตลาด</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* เปลี่ยนเป็น flex-start เพื่อให้เนื้อหาขึ้นเริ่มต้นที่ด้านบน */
+      min-height: 110vh; /* ใช้ min-height แทน height */
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(12, 71, 60);
+      background-image: url(''); 
+      background-size: cover; 
+      background-position: center;
+      overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลง */
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 20px;
+      background-color: #ffffff; /* สีเขียว */
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-container {
+      text-align: center;
+    }
+    h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    padding: 5px;
+    color: #7bc0ab; /* เปลี่ยนสีตัวอักษร  */
+    border-radius: 5px;
+    display: inline-block;
+  }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .answered-count {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #a2eed7; /* เปลี่ยนสีตัวอักษร  */
+  }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Add space between buttons */
+      margin-top: 20px;
+    }
+    .submit-button, .next-button {
+      background-color: rgba(168, 114, 70, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .submit-button:hover, .next-button:hover {
+      background-color: rgba(255, 201, 148, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .back-button, .next-button {
+      background-color: rgba(181, 120, 71, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .back-button:hover, .next-button:hover {
+      background-color: rgba(184, 152, 84, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>แบบทดสอบ</h1>
+    <div id="answeredCount" class="answered-count">
+      คำถามที่ทำไปแล้ว: 0/20
+    </div>
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. การตลาดหมายถึงอะไร?</p>
+        <label><input type="radio" name="q1" value="A" onchange="updateAnsweredCount()">A. การขายสินค้าในราคาที่สูงที่สุด</label>
+        <label><input type="radio" name="q1" value="B" onchange="updateAnsweredCount()">B. การบริหารจัดการที่มุ่งตอบสนองความต้องการของลูกค้า</label>
+        <label><input type="radio" name="q1" value="C" onchange="updateAnsweredCount()">C. การโฆษณาสินค้าให้ลูกค้ารู้จัก</label>
+        <label><input type="radio" name="q1" value="D" onchange="updateAnsweredCount()">D. การแจกสินค้าตัวอย่างฟรี</label>
+      </div>
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. ข้อใดไม่ใช่ส่วนประสมทางการตลาด Marketing Mix?</p>
+        <label><input type="radio" name="q2" value="A" onchange="updateAnsweredCount()">A. Product</label>
+        <label><input type="radio" name="q2" value="B" onchange="updateAnsweredCount()">B. Price</label>
+        <label><input type="radio" name="q2" value="C" onchange="updateAnsweredCount()">C. Process</label>
+        <label><input type="radio" name="q2" value="D" onchange="updateAnsweredCount()">D. Profit</label>
+      </div>
+      <!-- Question 3 -->
+      <div class="question">
+        <p>3. การแบ่งกลุ่มตลาด Market Segmentation มีวัตถุประสงค์เพื่ออะไร?</p>
+        <label><input type="radio" name="q3" value="A" onchange="updateAnsweredCount()">A. เพิ่มยอดขายสินค้า</label>
+        <label><input type="radio" name="q3" value="B" onchange="updateAnsweredCount()">B. ลดต้นทุนการผลิต</label>
+        <label><input type="radio" name="q3" value="C" onchange="updateAnsweredCount()">C. กำหนดกลุ่มเป้าหมายที่ชัดเจน</label>
+        <label><input type="radio" name="q3" value="D" onchange="updateAnsweredCount()">D. วิเคราะห์คู่แข่ง</label>
+      </div>
+       <!-- Question 4 -->
+       <div class="question">
+        <p>4. การตลาดแบบ 4P ประกอบด้วยอะไรบ้าง?</p>
+        <label><input type="radio" name="q4" value="A" onchange="updateAnsweredCount()">A. People, Place, Profit, Product</label>
+        <label><input type="radio" name="q4" value="B" onchange="updateAnsweredCount()">B. Product, Price, Place, Promotion</label>
+        <label><input type="radio" name="q4" value="C" onchange="updateAnsweredCount()">C. Price, Product, Process, People</label>
+        <label><input type="radio" name="q4" value="D" onchange="updateAnsweredCount()">D. Product, Promotion, Profit, Price</label>
+      </div>
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. ข้อใดคือความสำคัญของการวิจัยตลาด?</p>
+        <label><input type="radio" name="q5" value="A" onchange="updateAnsweredCount()">A. เพื่อปรับปรุงกระบวนการผลิต</label>
+        <label><input type="radio" name="q5" value="B" onchange="updateAnsweredCount()">B. เพื่อทำให้สินค้าแตกต่างจากคู่แข่ง</label>
+        <label><input type="radio" name="q5" value="C" onchange="updateAnsweredCount()">C. เพื่อเข้าใจความต้องการของตลาดและลูกค้า</label>
+        <label><input type="radio" name="q5" value="D" onchange="updateAnsweredCount()">D. เพื่อกำหนดต้นทุนสินค้า</label>
+      </div>
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. ปัจจัยใดมีผลต่อพฤติกรรมการซื้อสินค้าของผู้บริโภคมากที่สุด?</p>
+        <label><input type="radio" name="q6" value="A" onchange="updateAnsweredCount()">A. วัฒนธรรม</label>
+        <label><input type="radio" name="q6" value="B" onchange="updateAnsweredCount()">B. ราคา</label>
+        <label><input type="radio" name="q6" value="C" onchange="updateAnsweredCount()">C. คุณภาพสินค้า</label>
+        <label><input type="radio" name="q6" value="D" onchange="updateAnsweredCount()">D. การโฆษณา</label>
+      </div>
+       <!-- Question 7 -->
+       <div class="question">
+        <p>7. “กลุ่มอ้างอิง” (Reference Group) มีอิทธิพลต่อผู้บริโภคในลักษณะใด?</p>
+        <label><input type="radio" name="q7" value="A" onchange="updateAnsweredCount()">A. การตัดสินใจซื้อสินค้าตามความต้องการส่วนตัว</label>
+        <label><input type="radio" name="q7" value="B" onchange="updateAnsweredCount()">B. การตัดสินใจซื้อสินค้าตามคำแนะนำของกลุ่ม</label>
+        <label><input type="radio" name="q7" value="C" onchange="updateAnsweredCount()">C. การเพิ่มมูลค่าในสินค้า</label>
+        <label><input type="radio" name="q7" value="D" onchange="updateAnsweredCount()">D. การกำหนดราคาสินค้า</label>
+      </div>
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8. กระบวนการตัดสินใจซื้อของผู้บริโภคเริ่มต้นด้วยขั้นตอนใด?</p>
+        <label><input type="radio" name="q8" value="A" onchange="updateAnsweredCount()">A. การประเมินทางเลือก</label>
+        <label><input type="radio" name="q8" value="B" onchange="updateAnsweredCount()">B. การรับรู้ปัญหาหรือความต้องการ</label>
+        <label><input type="radio" name="q8" value="C" onchange="updateAnsweredCount()">C. การค้นหาข้อมูล</label>
+        <label><input type="radio" name="q8" value="D" onchange="updateAnsweredCount()">D. การซื้อสินค้า</label>
+      </div>
+      <!-- Question 9 -->
+      <div class="question">
+        <p>9. ปัจจัยส่วนบุคคลที่ส่งผลต่อพฤติกรรมผู้บริโภคได้แก่ข้อใด?</p>
+        <label><input type="radio" name="q9" value="A" onchange="updateAnsweredCount()">A. การศึกษา, อาชีพ, รายได้</label>
+        <label><input type="radio" name="q9" value="B" onchange="updateAnsweredCount()">B. สถานการณ์ทางเศรษฐกิจ</label>
+        <label><input type="radio" name="q9" value="C" onchange="updateAnsweredCount()">C. วัฒนธรรมและประเพณี</label>
+        <label><input type="radio" name="q9" value="D" onchange="updateAnsweredCount()">D. กิจกรรมการตลาด</label>
+      </div>
+      <!-- Question 10 -->
+      <div class="question">
+        <p>10. การซื้อสินค้าประเภทใดที่ใช้เวลาในการพิจารณาตัดสินใจมากที่สุด?</p>
+        <label><input type="radio" name="q10" value="A" onchange="updateAnsweredCount()">A. สินค้าอุปโภคบริโภค</label>
+        <label><input type="radio" name="q10" value="B" onchange="updateAnsweredCount()">B. สินค้าแบรนด์เนม</label>
+        <label><input type="radio" name="q10" value="C" onchange="updateAnsweredCount()">C. สินค้าหรูหราและมีราคาสูง</label>
+        <label><input type="radio" name="q10" value="D" onchange="updateAnsweredCount()">D. สินค้าประจำวัน</label>
+      </div>
+      <!-- Question 11 -->
+      <div class="question">
+        <p>11. กลยุทธ์การกำหนดราคาแบบ Skimming Price หมายถึงอะไร?</p>
+        <label><input type="radio" name="q11" value="A" onchange="updateAnsweredCount()">A. การตั้งราคาสูงในช่วงเปิดตัว</label>
+        <label><input type="radio" name="q11" value="B" onchange="updateAnsweredCount()">B. การตั้งราคาต่ำเพื่อดึงดูดลูกค้า</label>
+        <label><input type="radio" name="q11" value="C" onchange="updateAnsweredCount()">C. สินค้าหรูหราและมีราคาสูง</label>
+        <label><input type="radio" name="q11" value="D" onchange="updateAnsweredCount()">D. สินค้าประจำวัน</label>
+      </div>
+      <!-- Question 12 -->
+      <div class="question">
+        <p>12. การส่งเสริมการขายแบบ "ลดแลกแจกแถม" เป็นกลยุทธ์ประเภทใด?</p>
+        <label><input type="radio" name="q12" value="A" onchange="updateAnsweredCount()">A. การโฆษณา</label>
+        <label><input type="radio" name="q12" value="B" onchange="updateAnsweredCount()">B. การตลาดแบบตัวต่อตัว</label>
+        <label><input type="radio" name="q12" value="C" onchange="updateAnsweredCount()">C. การกระตุ้นความต้องการสินค้า</label>
+        <label><input type="radio" name="q12" value="D" onchange="updateAnsweredCount()">D. การสร้างความเชื่อมั่นในแบรนด์</label>
+      </div>
+      <!-- Question 13 -->
+      <div class="question">
+        <p>13. ข้อใดคือข้อได้เปรียบของการใช้ช่องทางการตลาดออนไลน์?</p>
+        <label><input type="radio" name="q13" value="A" onchange="updateAnsweredCount()">A. ต้นทุนต่ำและเข้าถึงลูกค้ากลุ่มใหญ่ได้</label>
+        <label><input type="radio" name="q13" value="B" onchange="updateAnsweredCount()">B. ลดการแข่งขันในตลาด</label>
+        <label><input type="radio" name="q13" value="C" onchange="updateAnsweredCount()">C. เพิ่มความหลากหลายในสินค้า</label>
+        <label><input type="radio" name="q13" value="D" onchange="updateAnsweredCount()">D. ลดการใช้เทคโนโลยี</label>
+      </div>
+      <!-- Question 14 -->
+      <div class="question">
+        <p>14. การตลาดแบบ “ปากต่อปาก” (Word-of-Mouth Marketing) มีจุดเด่นสำคัญอย่างไร?</p>
+        <label><input type="radio" name="q14" value="A" onchange="updateAnsweredCount()">A. มีต้นทุนสูงแต่ผลลัพธ์ดี</label>
+        <label><input type="radio" name="q14" value="B" onchange="updateAnsweredCount()">B. มีความน่าเชื่อถือสูง</label>
+        <label><input type="radio" name="q14" value="C" onchange="updateAnsweredCount()">C. ต้องใช้สื่อออนไลน์เท่านั้น</label>
+        <label><input type="radio" name="q14" value="D" onchange="updateAnsweredCount()">D. สามารถใช้ได้เฉพาะสินค้าใหม่</label>
+      </div>
+      <!-- Question 15 -->
+      <div class="question">
+        <p>15. SWOT Analysis ใช้ในการวิเคราะห์อะไร?</p>
+        <label><input type="radio" name="q15" value="A" onchange="updateAnsweredCount()">A. ความแข็งแกร่ง จุดอ่อน โอกาส และภัยคุกคาม</label>
+        <label><input type="radio" name="q15" value="B" onchange="updateAnsweredCount()">B. ราคา ต้นทุน กำไร และยอดขาย</label>
+        <label><input type="radio" name="q15" value="C" onchange="updateAnsweredCount()">C. ตลาดเป้าหมาย กลุ่มอ้างอิง และพฤติกรรม</label>
+        <label><input type="radio" name="q15" value="D" onchange="updateAnsweredCount()">D. คู่แข่ง การส่งเสริมการขาย และช่องทาง</label>
+      </div>
+      <!-- Question 16 -->
+      <div class="question">
+        <p>16. การตลาดแบบยั่งยืน (Sustainable Marketing) หมายถึงอะไร?</p>
+        <label><input type="radio" name="q16" value="A" onchange="updateAnsweredCount()">A. การขายสินค้าที่เป็นมิตรต่อสิ่งแวดล้อม</label>
+        <label><input type="radio" name="q16" value="B" onchange="updateAnsweredCount()">B. การส่งเสริมการขายแบบไม่จำกัดเวลา</label>
+        <label><input type="radio" name="q16" value="C" onchange="updateAnsweredCount()">C. การกำหนดราคาต่ำเพื่อรักษาลูกค้า</label>
+        <label><input type="radio" name="q16" value="D" onchange="updateAnsweredCount()">D. การเพิ่มปริมาณการผลิต</label>
+      </div>
+      <!-- Question 17 -->
+      <div class="question">
+        <p>17. ข้อใดคือเทรนด์ของการตลาดดิจิทัลในปัจจุบัน?</p>
+        <label><input type="radio" name="q17" value="A" onchange="updateAnsweredCount()">A. การใช้โซเชียลมีเดียในการสร้างแบรนด์</label>
+        <label><input type="radio" name="q17" value="B" onchange="updateAnsweredCount()">B. การลดการใช้เทคโนโลยี AI</label>
+        <label><input type="radio" name="q17" value="C" onchange="updateAnsweredCount()">C. การมุ่งเน้นช่องทางออฟไลน์</label>
+        <label><input type="radio" name="q17" value="D" onchange="updateAnsweredCount()">D. การลดงบประมาณการตลาด</label>
+      </div>
+      <!-- Question 18 -->
+      <div class="question">
+        <p>18. Content Marketing คืออะไร?</p>
+        <label><input type="radio" name="q18" value="A" onchange="updateAnsweredCount()">A. การทำเนื้อหาสำหรับโฆษณาในโทรทัศน์</label>
+        <label><input type="radio" name="q18" value="B" onchange="updateAnsweredCount()">B. การสร้างเนื้อหาที่มีคุณค่าและเกี่ยวข้องเพื่อดึงดูดลูกค้า</label>
+        <label><input type="radio" name="q18" value="C" onchange="updateAnsweredCount()">C. การตั้งราคาสินค้าโดยอิงจากต้นทุนเนื้อหา</label>
+        <label><input type="radio" name="q18" value="D" onchange="updateAnsweredCount()">D. การขายสินค้าแบบไม่มีตัวแทน</label>
+      </div>
+       <!-- Question 19 -->
+       <div class="question">
+        <p>19. การตลาดแบบ Omnichannel มีลักษณะเด่นคืออะไร?</p>
+        <label><input type="radio" name="q19" value="A" onchange="updateAnsweredCount()">A. การใช้หลายช่องทางที่แยกจากกัน</label>
+        <label><input type="radio" name="q19" value="B" onchange="updateAnsweredCount()">B. การรวมทุกช่องทางการตลาดให้เชื่อมต่อกัน</label>
+        <label><input type="radio" name="q19" value="C" onchange="updateAnsweredCount()">C. การมุ่งเน้นเฉพาะลูกค้าออนไลน์</label>
+        <label><input type="radio" name="q19" value="D" onchange="updateAnsweredCount()">D. การลดจำนวนช่องทางการตลาด</label>
+      </div>
+      <!-- Question 20 -->
+      <div class="question">
+        <p>20. ข้อใดคือบทบาทของปัญญาประดิษฐ์ (AI) ในการตลาด?</p>
+        <label><input type="radio" name="q20" value="A" onchange="updateAnsweredCount()">A. วิเคราะห์ข้อมูลลูกค้าเพื่อปรับกลยุทธ์</label>
+        <label><input type="radio" name="q20" value="B" onchange="updateAnsweredCount()">B. ลดต้นทุนการผลิตสินค้า</label>
+        <label><input type="radio" name="q20" value="C" onchange="updateAnsweredCount()">C. แทนที่พนักงานขายทั้งหมด</label>
+        <label><input type="radio" name="q20" value="D" onchange="updateAnsweredCount()">D. กำหนดราคาสินค้าอัตโนมัติ</label>
+      </div>
+      <!-- Add remaining questions -->
+      <div class="button-container">
+        <button type="button" class="submit-button" onclick="submitQuiz()">ส่งคำตอบ</button>
+        <button type="button" class="back-button" onclick="backQuiz()">กลับหน้าหลัก</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let answeredCount = 0; // เก็บจำนวนคำถามที่ตอบแล้ว
+    const totalQuestions = 20; // จำนวนคำถามทั้งหมด
+  
+    // ฟังก์ชันสำหรับอัปเดตจำนวนคำถามที่ตอบ
+    function updateAnsweredCount() {
+      answeredCount = document.querySelectorAll('input[type="radio"]:checked').length;
+      document.getElementById('answeredCount').textContent = `คำถามที่ทำไปแล้ว: ${answeredCount}/${totalQuestions}`;
+    }
+  
+    // ฟังก์ชันสำหรับคำนวณคะแนนเมื่อกดปุ่มส่งคำตอบ
+    function submitQuiz() {
+      let score = 0;
+      
+      // ตัวอย่างของคำตอบที่ถูกต้อง (ถ้าคุณมีคำตอบที่ถูกต้องในฟังก์ชันนี้)
+      const correctAnswers = {
+        q1: 'B', q2: 'D', q3: 'C', q4: 'B', q5: 'C', q6: 'A', q7: 'B',
+        q8: 'B', q9: 'A', q10: 'C', q11: 'A', q12: 'C', q13: 'A', q14: 'B',
+        q15: 'A', q16: 'A', q17: 'A', q18: 'B', q19: 'B', q20: 'A'
+      };
+  
+      // ตรวจสอบคำตอบที่ถูกต้อง
+      for (let i = 1; i <= totalQuestions; i++) {
+        const selectedAnswer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (selectedAnswer && selectedAnswer.value === correctAnswers[`q${i}`]) {
+          score++;
+        }
+      }
+  
+      // แสดงคะแนน
+      alert(`คุณได้คะแนน: ${score} จาก ${totalQuestions}`);
+  
+      // เก็บคะแนนและคำตอบลงใน localStorage
+      localStorage.setItem('marketingScore', JSON.stringify({ score: score, total: totalQuestions }));
+  
+      window.location.href = 'resultmarketing.html'; // เปลี่ยนเป็นหน้าผลลัพธ์ของคุณ
+      
+    }
+    function goBack() {
+  window.location.href = 'index.html';  // ลิงก์ไปยังหน้า index.html
+    }
+  </script>
+  
+</body>
+</html>

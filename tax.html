@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบทดสอบวิชาภาษี</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* เปลี่ยนเป็น flex-start เพื่อให้เนื้อหาขึ้นเริ่มต้นที่ด้านบน */
+      min-height: 110vh; /* ใช้ min-height แทน height */
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(12, 71, 60);
+      background-image: url(''); 
+      background-size: cover; 
+      background-position: center;
+      overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลง */
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 20px;
+      background-color: #ffffff; /* สีเขียว */
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-container {
+      text-align: center;
+    }
+    h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    padding: 5px;
+    color: #7bc0ab; /* เปลี่ยนสีตัวอักษร  */
+    border-radius: 5px;
+    display: inline-block;
+  }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .answered-count {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #a2eed7; /* เปลี่ยนสีตัวอักษร  */
+  }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Add space between buttons */
+      margin-top: 20px;
+    }
+    .submit-button, .next-button {
+      background-color: rgba(168, 114, 70, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .submit-button:hover, .next-button:hover {
+      background-color: rgba(255, 201, 148, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .back-button, .next-button {
+      background-color: rgba(181, 120, 71, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .back-button:hover, .next-button:hover {
+      background-color: rgba(184, 152, 84, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>แบบทดสอบ</h1>
+    <div id="answeredCount" class="answered-count">
+      คำถามที่ทำไปแล้ว: 0/20
+    </div>
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. ภาษีหมายถึงอะไร?</p>
+        <label><input type="radio" name="q1" value="A" onchange="updateAnsweredCount()">A. ค่าธรรมเนียมในการซื้อขายสินค้า</label>
+        <label><input type="radio" name="q1" value="B" onchange="updateAnsweredCount()">B. เงินที่รัฐเรียกเก็บจากประชาชนเพื่อใช้ในกิจการของรัฐ</label>
+        <label><input type="radio" name="q1" value="C" onchange="updateAnsweredCount()">C. รายได้ที่เอกชนมอบให้แก่รัฐ</label>
+        <label><input type="radio" name="q1" value="D" onchange="updateAnsweredCount()">D. การสนับสนุนทางการเงินจากองค์กรต่างประเทศ</label>
+      </div>
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. ภาษีแบ่งออกเป็นกี่ประเภทหลักตามระบบภาษีไทย?</p>
+        <label><input type="radio" name="q2" value="A" onchange="updateAnsweredCount()">A. 2 ประเภท</label>
+        <label><input type="radio" name="q2" value="B" onchange="updateAnsweredCount()">B. 3 ประเภท</label>
+        <label><input type="radio" name="q2" value="C" onchange="updateAnsweredCount()">C. 4 ประเภท</label>
+        <label><input type="radio" name="q2" value="D" onchange="updateAnsweredCount()">D. 5 ประเภท</label>
+      </div>
+       <!-- Question 3 -->
+       <div class="question">
+        <p>3. ข้อใดคือภาษีทางตรง?</p>
+        <label><input type="radio" name="q3" value="A" onchange="updateAnsweredCount()">A. ภาษีมูลค่าเพิ่ม</label>
+        <label><input type="radio" name="q3" value="B" onchange="updateAnsweredCount()">B. ภาษีเงินได้บุคคลธรรมดา</label>
+        <label><input type="radio" name="q3" value="C" onchange="updateAnsweredCount()">C. ภาษีสรรพสามิต</label>
+        <label><input type="radio" name="q3" value="D" onchange="updateAnsweredCount()">D. ภาษีศุลกากร</label>
+      </div>
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. ข้อใดเป็นตัวอย่างของภาษีทางอ้อม?</p>
+        <label><input type="radio" name="q4" value="A" onchange="updateAnsweredCount()">A. ภาษีเงินได้นิติบุคคล</label>
+        <label><input type="radio" name="q4" value="B" onchange="updateAnsweredCount()">B. ภาษีมรดก</label>
+        <label><input type="radio" name="q4" value="C" onchange="updateAnsweredCount()">C. ภาษีมูลค่าเพิ่ม</label>
+        <label><input type="radio" name="q4" value="D" onchange="updateAnsweredCount()">D. ภาษีที่ดินและสิ่งปลูกสร้าง</label>
+      </div>
+       <!-- Question 5 -->
+       <div class="question">
+        <p>5. หน่วยงานใดมีหน้าที่จัดเก็บภาษีในประเทศไทย?</p>
+        <label><input type="radio" name="q5" value="A" onchange="updateAnsweredCount()">A. กระทรวงพาณิชย์</label>
+        <label><input type="radio" name="q5" value="B" onchange="updateAnsweredCount()">B. กรมสรรพากร</label>
+        <label><input type="radio" name="q5" value="C" onchange="updateAnsweredCount()">C. ธนาคารแห่งประเทศไทย</label>
+        <label><input type="radio" name="q5" value="D" onchange="updateAnsweredCount()">D. สำนักงานตรวจเงินแผ่นดิน</label>
+      </div>
+       <!-- Question 6 -->
+       <div class="question">
+        <p>6. บุคคลประเภทใดไม่จำเป็นต้องยื่นแบบเสียภาษีเงินได้บุคคลธรรมดา?</p>
+        <label><input type="radio" name="q6" value="A" onchange="updateAnsweredCount()">A. ผู้มีรายได้ต่ำกว่าเกณฑ์ที่กำหนด</label>
+        <label><input type="radio" name="q6" value="B" onchange="updateAnsweredCount()">B. ผู้มีรายได้จากต่างประเทศเท่านั้น</label>
+        <label><input type="radio" name="q6" value="C" onchange="updateAnsweredCount()">C. ผู้ที่เป็นข้าราชการ</label>
+        <label><input type="radio" name="q6" value="D" onchange="updateAnsweredCount()">D. ผู้ที่ประกอบอาชีพอิสระ</label>
+      </div>
+       <!-- Question 7 -->
+       <div class="question">
+        <p>7. การยื่นแบบภาษีเงินได้บุคคลธรรมดาประเภท 90/91 ต้องยื่นภายในวันใด?</p>
+        <label><input type="radio" name="q7" value="A" onchange="updateAnsweredCount()">A. 31 มีนาคมของทุกปี</label>
+        <label><input type="radio" name="q7" value="B" onchange="updateAnsweredCount()">B. 30 เมษายนของทุกปี</label>
+        <label><input type="radio" name="q7" value="C" onchange="updateAnsweredCount()">C. 31 ธันวาคมของทุกปี</label>
+        <label><input type="radio" name="q7" value="D" onchange="updateAnsweredCount()">D. 30 มิถุนายนของทุกปี</label>
+      </div>
+       <!-- Question 8 -->
+       <div class="question">
+        <p>8. เงินได้ประเภทใดที่ได้รับการยกเว้นภาษี?</p>
+        <label><input type="radio" name="q8" value="A" onchange="updateAnsweredCount()">A. เงินเดือน</label>
+        <label><input type="radio" name="q8" value="B" onchange="updateAnsweredCount()">B. ดอกเบี้ยเงินฝากออมทรัพย์ไม่เกินเกณฑ์</label>
+        <label><input type="radio" name="q8" value="C" onchange="updateAnsweredCount()">C. ค่าล่วงเวลา</label>
+        <label><input type="radio" name="q8" value="D" onchange="updateAnsweredCount()">D. เงินปันผลจากหุ้น</label>
+      </div>
+       <!-- Question 9 -->
+       <div class="question">
+        <p>9. ค่าลดหย่อนภาษีเงินได้บุคคลธรรมดาหมายถึงอะไร?</p>
+        <label><input type="radio" name="q9" value="A" onchange="updateAnsweredCount()">A. ค่าใช้จ่ายที่สามารถหักออกจากรายได้</label>
+        <label><input type="radio" name="q9" value="B" onchange="updateAnsweredCount()">B. รายได้เพิ่มเติมจากการลงทุน</label>
+        <label><input type="radio" name="q9" value="C" onchange="updateAnsweredCount()">C. ค่าใช้จ่ายที่ต้องเสียภาษีเพิ่มเติม</label>
+        <label><input type="radio" name="q9" value="D" onchange="updateAnsweredCount()">D. ภาษีที่ยังค้างชำระ</label>
+      </div>
+       <!-- Question 10 -->
+       <div class="question">
+        <p>10. ข้อใดเป็นค่าลดหย่อนภาษีที่ถูกต้อง?</p>
+        <label><input type="radio" name="q10" value="A" onchange="updateAnsweredCount()">A. ดอกเบี้ยเงินฝากประจำ</label>
+        <label><input type="radio" name="q10" value="B" onchange="updateAnsweredCount()">B. ค่าเลี้ยงดูบิดามารดา</label>
+        <label><input type="radio" name="q10" value="C" onchange="updateAnsweredCount()">C. ค่าเช่าบ้าน</label>
+        <label><input type="radio" name="q10" value="D" onchange="updateAnsweredCount()">D. ค่าใช้จ่ายในการเดินทาง</label>
+      </div>
+       <!-- Question 11 -->
+       <div class="question">
+        <p>11. อัตราภาษีมูลค่าเพิ่มในประเทศไทยปัจจุบันคือเท่าใด?</p>
+        <label><input type="radio" name="q11" value="A" onchange="updateAnsweredCount()">A. 5%</label>
+        <label><input type="radio" name="q11" value="B" onchange="updateAnsweredCount()">B. 7%</label>
+        <label><input type="radio" name="q11" value="C" onchange="updateAnsweredCount()">C. 10%</label>
+        <label><input type="radio" name="q11" value="D" onchange="updateAnsweredCount()">D. 12%</label>
+      </div>
+       <!-- Question 12 -->
+       <div class="question">
+        <p>12. ผู้ประกอบการต้องจดทะเบียนภาษีมูลค่าเพิ่มเมื่อมีรายได้เกินเท่าใดต่อปี?</p>
+        <label><input type="radio" name="q12" value="A" onchange="updateAnsweredCount()">A. 300,000 บาท</label>
+        <label><input type="radio" name="q12" value="B" onchange="updateAnsweredCount()">B. 1,000,000 บาท</label>
+        <label><input type="radio" name="q12" value="C" onchange="updateAnsweredCount()">C. 1,800,000 บาท</label>
+        <label><input type="radio" name="q12" value="D" onchange="updateAnsweredCount()">D. 2,000,000 บาท</label>
+      </div>
+       <!-- Question 13 -->
+       <div class="question">
+        <p>13. ข้อใดไม่ใช่รายการที่ต้องเสียภาษีมูลค่าเพิ่ม?</p>
+        <label><input type="radio" name="q13" value="A" onchange="updateAnsweredCount()">A. การขายสินค้า</label>
+        <label><input type="radio" name="q13" value="B" onchange="updateAnsweredCount()">B. การให้บริการ</label>
+        <label><input type="radio" name="q13" value="C" onchange="updateAnsweredCount()">C. การนำเข้าสินค้า</label>
+        <label><input type="radio" name="q13" value="D" onchange="updateAnsweredCount()">D. การซื้อสินค้าภายในประเทศ</label>
+      </div>
+       <!-- Question 14 -->
+       <div class="question">
+        <p>14. ใบกำกับภาษีมีความสำคัญอย่างไร?</p>
+        <label><input type="radio" name="q14" value="A" onchange="updateAnsweredCount()">A. ใช้แสดงต้นทุนสินค้า</label>
+        <label><input type="radio" name="q14" value="B" onchange="updateAnsweredCount()">B. ใช้เป็นหลักฐานยื่นลดหย่อนภาษี</label>
+        <label><input type="radio" name="q14" value="C" onchange="updateAnsweredCount()">C. ใช้ยืนยันการจ่ายภาษีมูลค่าเพิ่ม</label>
+        <label><input type="radio" name="q14" value="D" onchange="updateAnsweredCount()">D. ใช้คำนวณกำไรสุทธิ</label>
+      </div>
+       <!-- Question 15 -->
+       <div class="question">
+        <p>15. ผู้ประกอบการที่ไม่ต้องจดทะเบียนภาษีมูลค่าเพิ่มจะต้องทำอะไรแทน?</p>
+        <label><input type="radio" name="q15" value="A" onchange="updateAnsweredCount()">A. จ่ายภาษีเงินได้บุคคลธรรมดา</label>
+        <label><input type="radio" name="q15" value="B" onchange="updateAnsweredCount()">B. จดทะเบียนเป็นผู้เสียภาษีธุรกิจเฉพาะ</label>
+        <label><input type="radio" name="q15" value="C" onchange="updateAnsweredCount()">C. จ่ายค่าปรับแทน</label>
+        <label><input type="radio" name="q15" value="D" onchange="updateAnsweredCount()">D. ไม่ต้องดำเนินการใดๆ</label>
+      </div>
+       <!-- Question 16 -->
+       <div class="question">
+        <p>16. การเสียภาษีที่ดินและสิ่งปลูกสร้างคำนวณจากอะไร?</p>
+        <label><input type="radio" name="q16" value="A" onchange="updateAnsweredCount()">A. มูลค่าที่ดินและสิ่งปลูกสร้าง</label>
+        <label><input type="radio" name="q16" value="B" onchange="updateAnsweredCount()">B. รายได้ของเจ้าของที่ดิน</label>
+        <label><input type="radio" name="q16" value="C" onchange="updateAnsweredCount()">C. พื้นที่ของที่ดิน</label>
+        <label><input type="radio" name="q16" value="D" onchange="updateAnsweredCount()">D. ประเภทของอาคาร</label>
+      </div>
+       <!-- Question 17 -->
+       <div class="question">
+        <p>17. ผู้เสียภาษีที่ดินต้องยื่นภาษีภายในเดือนไหนของปี?</p>
+        <label><input type="radio" name="q17" value="A" onchange="updateAnsweredCount()">A. มกราคม</label>
+        <label><input type="radio" name="q17" value="B" onchange="updateAnsweredCount()">B. กุมภาพันธ์</label>
+        <label><input type="radio" name="q17" value="C" onchange="updateAnsweredCount()">C. มีนาคม</label>
+        <label><input type="radio" name="q17" value="D" onchange="updateAnsweredCount()">D. เมษายน</label>
+      </div>
+       <!-- Question 18 -->
+       <div class="question">
+        <p>18. ภาษีสรรพสามิตเกี่ยวข้องกับสินค้าและบริการประเภทใด?</p>
+        <label><input type="radio" name="q18" value="A" onchange="updateAnsweredCount()">A. สินค้าหรูหราและสินค้าฟุ่มเฟือย</label>
+        <label><input type="radio" name="q18" value="B" onchange="updateAnsweredCount()">B. สินค้าทั่วไปในชีวิตประจำวัน</label>
+        <label><input type="radio" name="q18" value="C" onchange="updateAnsweredCount()">C. บริการสาธารณะ</label>
+        <label><input type="radio" name="q18" value="D" onchange="updateAnsweredCount()">D. การลงทุนในหลักทรัพย์</label>
+      </div>
+       <!-- Question 19 -->
+       <div class="question">
+        <p>19. สินค้าประเภทใดที่ไม่อยู่ในขอบเขตของภาษีสรรพสามิต?</p>
+        <label><input type="radio" name="q19" value="A" onchange="updateAnsweredCount()">A. น้ำมัน</label>
+        <label><input type="radio" name="q19" value="B" onchange="updateAnsweredCount()">B. รถยนต์</label>
+        <label><input type="radio" name="q19" value="C" onchange="updateAnsweredCount()">C. อสังหาริมทรัพย์</label>
+        <label><input type="radio" name="q19" value="D" onchange="updateAnsweredCount()">D. สุรา</label>
+      </div>
+       <!-- Question 20 -->
+       <div class="question">
+        <p>20. การเก็บภาษีสรรพสามิตมีวัตถุประสงค์เพื่ออะไร?</p>
+        <label><input type="radio" name="q20" value="A" onchange="updateAnsweredCount()">A. เพิ่มรายได้ให้รัฐบาล</label>
+        <label><input type="radio" name="q20" value="B" onchange="updateAnsweredCount()">B. ส่งเสริมการบริโภคสินค้า</label>
+        <label><input type="radio" name="q20" value="C" onchange="updateAnsweredCount()">C. ลดการบริโภคสินค้าฟุ่มเฟือย</label>
+        <label><input type="radio" name="q20" value="D" onchange="updateAnsweredCount()">D. ปรับปรุงโครงสร้างพื้นฐาน</label>
+      </div>
+      <!-- Add remaining questions -->
+      <div class="button-container">
+        <button type="button" class="submit-button" onclick="submitQuiz()">ส่งคำตอบ</button>
+        <button type="button" class="back-button" onclick="backQuiz()">กลับหน้าหลัก</button>
+      </div>
+    </form>
+  </div>
+
+
+  <script>
+    let answeredCount = 0;
+    const totalQuestions = 20;  // จำนวนคำถามทั้งหมด
+  
+    // ฟังก์ชันอัปเดตจำนวนคำถามที่ตอบแล้ว
+    function updateAnsweredCount() {
+      answeredCount = 0;
+      
+      // ตรวจสอบทุกคำถามและนับจำนวนคำถามที่ติ๊ก
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
+        if (answers.length > 0) {
+          answeredCount++; // ถ้ามีการติ๊กคำตอบ ก็จะเพิ่มจำนวนคำถามที่ตอบแล้ว
+        }
+      }
+  
+      // อัปเดตข้อความแสดงจำนวนคำถามที่ทำไปแล้ว
+      document.getElementById('answeredCount').textContent = `คำถามที่ทำไปแล้ว: ${answeredCount}/${totalQuestions}`;
+    }
+  
+    function submitQuiz() {
+      let allAnswered = true;
+  
+      // ตรวจสอบว่าทุกคำถามมีการตอบแล้วหรือไม่
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!answer) {
+          allAnswered = false;
+          break; 
+        }
+      }
+  
+      if (!allAnswered) {
+        alert("กรุณาตอบทุกคำถามก่อนส่งคำตอบ");
+        return;
+      }
+  
+      const correctAnswers = {
+        q1: 'B', // ตัวอย่างคำตอบที่ถูกต้อง
+        q2: 'A',
+        q3: 'B',
+        q4: 'C',
+        q5: 'B',
+        q6: 'A',
+        q7: 'B',
+        q8: 'B',
+        q9: 'A',
+        q10: 'B',
+        q11: 'B',
+        q12: 'C',
+        q13: 'D',
+        q14: 'C',
+        q15: 'B',
+        q16: 'A',
+        q17: 'C',
+        q18: 'A',
+        q19: 'C',
+        q20: 'C',
+        // เพิ่มคำตอบที่ถูกต้องสำหรับคำถามอื่นๆ
+      };
+      let score = 0;
+      let userAnswers = {};
+  
+      // ตรวจสอบคำตอบของทุกคำถามจาก q1 ถึง q20
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer) {
+          userAnswers[`q${i}`] = answer.value;
+          if (answer.value === correctAnswers[`q${i}`]) {
+            score++; // ถ้าคำตอบถูกต้อง เพิ่มคะแนน
+          }
+        }
+      }
+  
+      // แสดงคะแนน
+      alert(`คุณได้คะแนน: ${score} จาก ${totalQuestions}`);
+  
+      // เก็บคะแนนและคำตอบลงใน localStorage
+      localStorage.setItem('taxScore', JSON.stringify({ score: score, total: totalQuestions }));
+  
+      window.location.href = 'resulttax.html'; // เปลี่ยนเป็นหน้าผลลัพธ์ของคุณ
+      
+    }
+    function goBack() {
+  window.location.href = 'index.html';  // ลิงก์ไปยังหน้า index.html
+}
+  </script>
+  
+</body>
+</html>

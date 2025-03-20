@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แบบทดสอบวิชาคอมพิวเตอร์</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* เปลี่ยนเป็น flex-start เพื่อให้เนื้อหาขึ้นเริ่มต้นที่ด้านบน */
+      min-height: 110vh; /* ใช้ min-height แทน height */
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: rgb(12, 71, 60);
+      background-image: url(''); 
+      background-size: cover; 
+      background-position: center;
+      overflow-y: auto; /* เพิ่มการเลื่อนขึ้นลง */
+    }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+      padding: 20px;
+      background-color: #ffffff; /* สีเขียว */
+      color: rgb(0, 0, 0);
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .quiz-container {
+      text-align: center;
+    }
+    h1 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    padding: 5px;
+    color: #7bc0ab; /* เปลี่ยนสีตัวอักษร  */
+    border-radius: 5px;
+    display: inline-block;
+  }
+    .question {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .answered-count {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    padding: 10px;
+    color: #a2eed7; /* เปลี่ยนสีตัวอักษร  */
+  }
+    .button-container {
+      display: flex;
+      justify-content: center;
+      gap: 20px; /* Add space between buttons */
+      margin-top: 20px;
+    }
+    .submit-button, .next-button {
+      background-color: rgba(168, 114, 70, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .submit-button:hover, .next-button:hover {
+      background-color: rgba(255, 201, 148, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+    .back-button, .next-button {
+      background-color: rgba(181, 120, 71, 0.8);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 1.2em;
+    }
+    .back-button:hover, .next-button:hover {
+      background-color: rgba(184, 152, 84, 0.8);
+    }
+    .next-button:after {
+      content: ' →'; /* Right arrow */
+    }
+    label {
+      font-size: 1em;
+      display: block;
+      margin: 10px 0;
+      text-align: left;
+    }
+    label input {
+      margin-right: 10px;
+    }
+    .answered-count {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <h1>แบบทดสอบ</h1>
+    <div id="answeredCount" class="answered-count">
+      คำถามที่ทำไปแล้ว: 0/20
+    </div>
+    <form id="quizForm">
+      <!-- Question 1 -->
+      <div class="question">
+        <p>1. ข้อใดคือความหมายของคอมพิวเตอร์?</p>
+        <label><input type="radio" name="q1" value="A" onchange="updateAnsweredCount()">A. เครื่องคำนวณอัตโนมัติ</label>
+        <label><input type="radio" name="q1" value="B" onchange="updateAnsweredCount()">B. เครื่องใช้สำนักงานอัตโนมัติรุ่นใหม่</label>
+        <label><input type="radio" name="q1" value="C" onchange="updateAnsweredCount()">C. อุปกรณ์อิเล็คทรอนิกส์อย่างหนึ่ง</label>
+        <label><input type="radio" name="q1" value="D" onchange="updateAnsweredCount()">D. เป็นแผงวงจรอิเล็กทรอนิกส์อย่างหนึ่ง</label>
+      </div>
+      <!-- Question 2 -->
+      <div class="question">
+        <p>2. ข้อใดคือแหล่งพลังงานของคอมพิวเตอร์?</p>
+        <label><input type="radio" name="q2" value="A" onchange="updateAnsweredCount()">A. กระแสไฟฟ้า</label>
+        <label><input type="radio" name="q2" value="B" onchange="updateAnsweredCount()">B. แสงอาทิตย์</label>
+        <label><input type="radio" name="q2" value="C" onchange="updateAnsweredCount()">C. แบตเตอรี่</label>
+        <label><input type="radio" name="q2" value="D" onchange="updateAnsweredCount()">D. พลังงานจากฟ้าผ่า</label>
+      </div>
+       <!-- Question 3 -->
+       <div class="question">
+        <p>3. ชนิดของซอฟต์แวร์ (software) มีทั้งหมดกี่ชนิด</p>
+        <label><input type="radio" name="q3" value="A" onchange="updateAnsweredCount()">A. มี 1 ชนิด 1.ซอฟต์แวร์ระบบ </label>
+        <label><input type="radio" name="q3" value="B" onchange="updateAnsweredCount()">B. มี 2 ชนิด 1.ซอฟต์แวร์ระบบ 2.ซอฟต์แวร์ประยุกต์ </label>
+        <label><input type="radio" name="q3" value="C" onchange="updateAnsweredCount()">C. มี 3 ชนิด 1.ซอฟต์แวร์ระบบ 2.ซอฟต์แวร์ประยุกต์ 3.ซอฟต์แวร์บุคคล </label>
+        <label><input type="radio" name="q3" value="D" onchange="updateAnsweredCount()">D. มี4 ชนิด 1.ซอฟต์แวร์ระบบ 2.ซอฟต์แวร์ประยุกต์ 3.ซอฟต์แวร์บุคคล 4. ซอฟต์แวร์บริหำร</label>
+      </div>
+      <!-- Question 4 -->
+      <div class="question">
+        <p>4. โปรแกรมเชื่อมต่อกับเครือข่ายอินเทอร์เน็ต คือโปรแกรมใด </p>
+        <label><input type="radio" name="q4" value="A" onchange="updateAnsweredCount()">A. Microsoft Word </label>
+        <label><input type="radio" name="q4" value="B" onchange="updateAnsweredCount()">B. Internet Explorer</label>
+        <label><input type="radio" name="q4" value="C" onchange="updateAnsweredCount()">C. Google Chrome </label>
+        <label><input type="radio" name="q4" value="D" onchange="updateAnsweredCount()">D. ถูกทั้ง ข และ ค</label>
+      </div>
+      <!-- Question 5 -->
+      <div class="question">
+        <p>5. ข้อใดไม่ใช่ภาษาโปรแกรม</p>
+        <label><input type="radio" name="q5" value="A" onchange="updateAnsweredCount()">A. Python </label>
+        <label><input type="radio" name="q5" value="B" onchange="updateAnsweredCount()">B. HTML </label>
+        <label><input type="radio" name="q5" value="C" onchange="updateAnsweredCount()">C. SQL</label>
+        <label><input type="radio" name="q5" value="D" onchange="updateAnsweredCount()">D. Linux</label>
+      </div>
+      <!-- Question 6 -->
+      <div class="question">
+        <p>6. TCP/IP หมายถึงอะไร </p>
+        <label><input type="radio" name="q6" value="A" onchange="updateAnsweredCount()">A. Transmission Control Protocol/Internet Protocol </label>
+        <label><input type="radio" name="q6" value="B" onchange="updateAnsweredCount()">B. Transfer Communication Protocol/Internet Protocol </label>
+        <label><input type="radio" name="q6" value="C" onchange="updateAnsweredCount()">C. Transmission Control Package/Internet Protocol</label>
+        <label><input type="radio" name="q6" value="D" onchange="updateAnsweredCount()">D. Transfer Control Protocol/Internet Package</label>
+      </div>
+      <!-- Question 7 -->
+      <div class="question">
+        <p>7.  อัลกอริธึมใดใช้สำหรับการจัดเรียงข้อมูล </p>
+        <label><input type="radio" name="q7" value="A" onchange="updateAnsweredCount()">A. Quick Sort อัลกอริธึมจัดเรียงข้อมูลอย่างมีประสิทธิภาพ </label>
+        <label><input type="radio" name="q7" value="B" onchange="updateAnsweredCount()">B. Binary Search อัลกอริธึมค้นหาข้อมูลในลำดับที่จัดเรียงแล้ว</label>
+        <label><input type="radio" name="q7" value="C" onchange="updateAnsweredCount()">C. Depth First Search ใช้ในการสำรวจกราฟ </label>
+        <label><input type="radio" name="q7" value="D" onchange="updateAnsweredCount()">D. Breadth First Search ใช้ในการสำรวจกราฟ </label>
+      </div> 
+      <!-- Question 8 -->
+      <div class="question">
+        <p>8. ข้อใดคือการโจมตีทางไซเบอร์ที่พยายามทำให้ระบบไม่สามารถใช้งานได้ </p>
+        <label><input type="radio" name="q8" value="A" onchange="updateAnsweredCount()">A. Phishing การหลอกลวงเพื่อขโมยข้อมูลส่วนตัว </label>
+        <label><input type="radio" name="q8" value="B" onchange="updateAnsweredCount()">B. DDoS การโจมตีระบบด้วยการส่งคำร้องขอจำนวนมากจนระบบล่ม </label>
+        <label><input type="radio" name="q8" value="C" onchange="updateAnsweredCount()">C. Spoofing การปลอมแปลงข้อมูลเพื่อหลอกลวง</label>
+        <label><input type="radio" name="q8" value="D" onchange="updateAnsweredCount()">D. Sniffing การดักจับข้อมูลที่ถูกส่งผ่านเครือข่าย </label>
+      </div>
+      <!-- Question 9 -->
+      <div class="question">
+        <p>9. หน่วยประมวลผลกลาง (CPU) ทำหน้าที่อะไรในคอมพิวเตอร์ </p>
+        <label><input type="radio" name="q9" value="A" onchange="updateAnsweredCount()">A. จัดเก็บข้อมูล </label>
+        <label><input type="radio" name="q9" value="B" onchange="updateAnsweredCount()">B. ประมวลผลข้อมูล </label>
+        <label><input type="radio" name="q9" value="C" onchange="updateAnsweredCount()">C. แสดงผลข้อมูล </label>
+        <label><input type="radio" name="q9" value="D" onchange="updateAnsweredCount()">D. เชื่อมต่อกับเครือข่าย </label>
+      </div>
+      <!-- Question 10 -->
+      <div class="question">
+        <p>10. อุปกรณ์ใดต่อไปนี้เป็นอุปกรณ์รับข้อมูล (Input Device) </p>
+        <label><input type="radio" name="q10" value="A" onchange="updateAnsweredCount()">A. จอภาพ </label>
+        <label><input type="radio" name="q10" value="B" onchange="updateAnsweredCount()">B. แป้นพิมพ์ </label>
+        <label><input type="radio" name="q10" value="C" onchange="updateAnsweredCount()">C. เครื่องพิมพ์ </label>
+        <label><input type="radio" name="q10" value="D" onchange="updateAnsweredCount()">D. ลำโพง</label>
+      </div>
+      <!-- Question 11 -->
+      <div class="question">
+        <p>11. ข้อใดเป็นตัวอย่างของซอฟต์แวร์ประยุกต์ (Application Software) </p>
+        <label><input type="radio" name="q11" value="A" onchange="updateAnsweredCount()">A. macOS </label>
+        <label><input type="radio" name="q11" value="B" onchange="updateAnsweredCount()">B. Microsoft Excel </label>
+        <label><input type="radio" name="q11" value="C" onchange="updateAnsweredCount()">C. Linux </label>
+        <label><input type="radio" name="q11" value="D" onchange="updateAnsweredCount()">D. Ubuntu</label>
+      </div>
+       <!-- Question 12 -->
+       <div class="question">
+        <p>12. ข้อใดต่อไปนี้เป็นความแตกต่างที่สำคัญระหว่าง RAM และ ROM </p>
+        <label><input type="radio" name="q12" value="A" onchange="updateAnsweredCount()">A. RAM เป็นหน่วยความจำถาวร ส่วน ROM เป็นหน่วยความจำชั่วคราว </label>
+        <label><input type="radio" name="q12" value="B" onchange="updateAnsweredCount()">B. RAM เป็นหน่วยความจำชั่วคราว ส่วน ROM เป็นหน่วยความจำถาวร </label>
+        <label><input type="radio" name="q12" value="C" onchange="updateAnsweredCount()">C. RAM เก็บข้อมูลได้มากกว่า ROM </label>
+        <label><input type="radio" name="q12" value="D" onchange="updateAnsweredCount()">D. ROM สามารถอ่านและเขียนข้อมูลได้ ส่วน RAM อ่านได้อย่างเดียว </label>
+      </div>
+       <!-- Question 13 -->
+       <div class="question">
+        <p>13. คอมพิวเตอร์ในยุคที่มีการใช้หลอดสุญญากาศคือยุคใด </p>
+        <label><input type="radio" name="q13" value="A" onchange="updateAnsweredCount()">A. ยุคที่ 1 </label>
+        <label><input type="radio" name="q13" value="B" onchange="updateAnsweredCount()">B. ยุคที่ 2 </label>
+        <label><input type="radio" name="q13" value="C" onchange="updateAnsweredCount()">C. ยุคที่ 3 </label>
+        <label><input type="radio" name="q13" value="D" onchange="updateAnsweredCount()">D. ยุคที่ 4 </label>
+      </div>
+       <!-- Question 14 -->
+       <div class="question">
+        <p>14. หน่วยเก็บข้อมูลใดมีความจุมากที่สุด </p>
+        <label><input type="radio" name="q14" value="A" onchange="updateAnsweredCount()">A. CD </label>
+        <label><input type="radio" name="q14" value="B" onchange="updateAnsweredCount()">B. DVD </label>
+        <label><input type="radio" name="q14" value="C" onchange="updateAnsweredCount()">C. Hard Disk </label>
+        <label><input type="radio" name="q14" value="D" onchange="updateAnsweredCount()">D. USB Flash Drive </label>
+      </div>
+       <!-- Question 15 -->
+       <div class="question">
+        <p>15. ข้อใดคือโปรโตคอลที่ใช้ในการส่งอีเมล </p>
+        <label><input type="radio" name="q15" value="A" onchange="updateAnsweredCount()">A. FTP  </label>
+        <label><input type="radio" name="q15" value="B" onchange="updateAnsweredCount()">B. HTTP </label>
+        <label><input type="radio" name="q15" value="C" onchange="updateAnsweredCount()">C. SMTP </label>
+        <label><input type="radio" name="q15" value="D" onchange="updateAnsweredCount()">D. DNS </label>
+      </div>
+       <!-- Question 16 -->
+       <div class="question">
+        <p>16. ข้อใดคือระบบปฏิบัติการที่ได้รับความนิยม </p>
+        <label><input type="radio" name="q16" value="A" onchange="updateAnsweredCount()">A. Windows </label>
+        <label><input type="radio" name="q16" value="B" onchange="updateAnsweredCount()">B. Microsoft Word </label>
+        <label><input type="radio" name="q16" value="C" onchange="updateAnsweredCount()">C. Adobe Photoshop </label>
+        <label><input type="radio" name="q16" value="D" onchange="updateAnsweredCount()">D. Google Chrome </label>
+      </div>
+       <!-- Question 17 -->
+       <div class="question">
+        <p>17. การจัดการกับข้อมูลในโครงสร้างข้อมูลแบบ Tree ที่ช่วยลดเวลาการค้นหาข้อมูลเรียกว่าอะไร </p>
+        <label><input type="radio" name="q17" value="A" onchange="updateAnsweredCount()">A. Hashing </label>
+        <label><input type="radio" name="q17" value="B" onchange="updateAnsweredCount()">B. Binary Search </label>
+        <label><input type="radio" name="q17" value="C" onchange="updateAnsweredCount()">C. Preorder Traversal</label>
+        <label><input type="radio" name="q17" value="D" onchange="updateAnsweredCount()">D. Depth-First Search </label>
+      </div>
+       <!-- Question 18 -->
+       <div class="question">
+        <p>18. อุปกรณ์ใดต่อไปนี้ใช้สำหรับเก็บข้อมูลสำรองในคอมพิวเตอร์ </p>
+        <label><input type="radio" name="q18" value="A" onchange="updateAnsweredCount()">A. เมาส์ </label>
+        <label><input type="radio" name="q18" value="B" onchange="updateAnsweredCount()">B. ฮาร์ดดิสก์ </label>
+        <label><input type="radio" name="q18" value="C" onchange="updateAnsweredCount()">C. จอภาพ </label>
+        <label><input type="radio" name="q18" value="D" onchange="updateAnsweredCount()">D. เครื่องสแกน </label>
+      </div>
+       <!-- Question 19 -->
+       <div class="question">
+        <p>19. อุปกรณ์ที่ทำหน้าที่กระจายสัญญาณอินเทอร์เน็ตในเครือข่ายไร้สายคืออะไร </p>
+        <label><input type="radio" name="q19" value="A" onchange="updateAnsweredCount()">A. Switch </label>
+        <label><input type="radio" name="q19" value="B" onchange="updateAnsweredCount()">B. Router </label>
+        <label><input type="radio" name="q19" value="C" onchange="updateAnsweredCount()">C. Hub </label>
+        <label><input type="radio" name="q19" value="D" onchange="updateAnsweredCount()">D. Bridge </label>
+      </div>
+      <!-- Question 20 -->
+      <div class="question">
+        <p>20. ข้อใดคือฟังก์ชันหลักของหน่วยความจำ RAM ในคอมพิวเตอร์ </p>
+        <label><input type="radio" name="q20" value="A" onchange="updateAnsweredCount()">A. จัดเก็บข้อมูลถาวร </label>
+        <label><input type="radio" name="q20" value="B" onchange="updateAnsweredCount()">B. ประมวลผลข้อมูล </label>
+        <label><input type="radio" name="q20" value="C" onchange="updateAnsweredCount()">C. จัดเก็บข้อมูลชั่วคราวระหว่างการทำงาน </label>
+        <label><input type="radio" name="q20" value="D" onchange="updateAnsweredCount()">D. เชื่อมต่อคอมพิวเตอร์กับอุปกรณ์ภายนอก </label>
+      </div>
+      <!-- Add remaining questions -->
+      <div class="button-container">
+        <button type="button" class="submit-button" onclick="submitQuiz()">ส่งคำตอบ</button>
+        <button type="button" class="back-button" onclick="goBack()">กลับหน้าหลัก</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    let answeredCount = 0;
+    const totalQuestions = 20;  // จำนวนคำถามทั้งหมด
+  
+    // ฟังก์ชันอัปเดตจำนวนคำถามที่ตอบแล้ว
+    function updateAnsweredCount() {
+      answeredCount = 0;
+      
+      // ตรวจสอบทุกคำถามและนับจำนวนคำถามที่ติ๊ก
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answers = document.querySelectorAll(`input[name="q${i}"]:checked`);
+        if (answers.length > 0) {
+          answeredCount++; // ถ้ามีการติ๊กคำตอบ ก็จะเพิ่มจำนวนคำถามที่ตอบแล้ว
+        }
+      }
+  
+      // อัปเดตข้อความแสดงจำนวนคำถามที่ทำไปแล้ว
+      document.getElementById('answeredCount').textContent = `คำถามที่ทำไปแล้ว: ${answeredCount}/${totalQuestions}`;
+    }
+  
+    function submitQuiz() {
+      let allAnswered = true;
+  
+      // ตรวจสอบว่าทุกคำถามมีการตอบแล้วหรือไม่
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (!answer) {
+          allAnswered = false;
+          break; 
+        }
+      }
+  
+      if (!allAnswered) {
+        alert("กรุณาตอบทุกคำถามก่อนส่งคำตอบ");
+        return;
+      }
+  
+      const correctAnswers = {
+        q1: 'C', // ตัวอย่างคำตอบที่ถูกต้อง
+        q2: 'A',
+        q3: 'B',
+        q4: 'D',
+        q5: 'D',
+        q6: 'A',
+        q7: 'A',
+        q8: 'B',
+        q9: 'B',
+        q10: 'B',
+        q11: 'B', // เพิ่มคำตอบสำหรับคำถาม q11 ถึง q20
+        q12: 'B',
+        q13: 'A',
+        q14: 'C',
+        q15: 'C',
+        q16: 'A',
+        q17: 'B',
+        q18: 'B',
+        q19: 'B',
+        q20: 'D',
+      };
+  
+      let score = 0;
+      let userAnswers = {};
+  
+      // ตรวจสอบคำตอบของทุกคำถามจาก q1 ถึง q20
+      for (let i = 1; i <= totalQuestions; i++) {
+        const answer = document.querySelector(`input[name="q${i}"]:checked`);
+        if (answer) {
+          userAnswers[`q${i}`] = answer.value;
+          if (answer.value === correctAnswers[`q${i}`]) {
+            score++; // ถ้าคำตอบถูกต้อง เพิ่มคะแนน
+          }
+        }
+      }
+  
+      // แสดงคะแนน
+      alert(`คุณได้คะแนน: ${score} จาก ${totalQuestions}`);
+  
+      // เก็บคะแนนและคำตอบลงใน localStorage
+      localStorage.setItem('computerScore', JSON.stringify({ score: score, total: totalQuestions }));
+  
+      window.location.href = 'resultcom.html'; // เปลี่ยนเป็นหน้าผลลัพธ์ของคุณ
+      
+    }
+    function goBack() {
+  window.location.href = 'exam.html';  // ลิงก์ไปยังหน้า index.html
+}
+  </script>
+  
+</body>
+</html>
